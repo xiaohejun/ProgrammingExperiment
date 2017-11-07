@@ -1,0 +1,172 @@
+package com.calculator.view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.util.Stack;
+
+import javax.print.attribute.standard.RequestingUserName;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class Calculator extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static String exp = ""; // exp
+	private static String ans = "0"; // ans
+	private final String[] btnName = { // btnName
+			"CE","Del","(",")",
+			"7","8","9","+",
+			"4","5","6","-",
+			"1","2","3","*",
+			"0",".","=","/"
+	};
+	
+	JButton[] btns = new JButton[btnName.length];
+	static JTextField display = new JTextField(ans);
+	
+	public Calculator() {
+		super("计算器");
+		Font font = new Font("Consolas", Font.BOLD, 20);
+		
+		// add components
+		JPanel pnlHead = new JPanel(new BorderLayout());
+		pnlHead.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// pan对象的边距
+		pnlHead.add(display); // add display
+		display.setFont(font);
+		
+		JPanel pnlBody = new JPanel(new GridLayout(5, 4, 10, 10)); // 5 line 4 col
+		pnlBody.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// pan对象的边距
+		//pnlBody.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		for (int i = 0; i < btnName.length; i++) {
+			btns[i] = new JButton(btnName[i]);  // create btn
+			btns[i].setFont(font);
+			pnlBody.add(btns[i]); // add btn
+		}
+		btns[18].setForeground(Color.WHITE);
+		btns[18].setBackground(new Color(72, 10, 221)); // count
+		btns[0].setForeground(Color.WHITE);
+		btns[0].setBackground(Color.RED); // count
+		
+		
+		getContentPane().setLayout(new BorderLayout());
+	    setLocationByPlatform(true); // 主窗口 出现在位置
+	    getContentPane().setLayout(new BorderLayout());
+	    getContentPane().add(pnlHead,BorderLayout.NORTH);
+	    getContentPane().add(pnlBody, BorderLayout.CENTER);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setSize(500, 500);
+	    setVisible(true);
+		
+	    
+	    // register listeners
+	    for (int i = 2; i < btnName.length; i++) {
+	    	// count dont reg
+			if(i != 18) btns[i].addActionListener(this); // override actionPerformed 
+		}
+		// DEL
+	    btns[0].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exp = "";
+				display.setText("0");
+			}
+		});
+	    
+		// CE
+		btns[1].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exp = exp.substring(0, exp.length()-1);
+				display.setText(exp);
+			}
+		});
+	    
+	    // Count
+		btns[18].addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				cal(exp);
+				display.setText(ans);
+				exp = "";
+			}
+		});
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton btn = ((JButton)e.getSource());
+		exp += btn.getText();
+		display.setText(exp);
+	}
+	
+	// cal exp
+	public static void cal(String exp) {
+		if("".equals(exp)) { display.setText("0"); ans = "0"; return;}; // return null 
+		if(isFalse(exp)) {ans = "exp is false!"; return ;};
+		Stack<BigDecimal> num = new Stack<BigDecimal>(); // num stack
+		Stack<String> operator = new Stack<String>(); // operator stack
+		String[] opera = {"+","-","*","/","(",")","#"};
+		String[][] pri= { // you xian ji
+				{">",">","<","<","<",">",">"},
+				{">",">","<","<","<",">",">"},
+				{">",">",">",">","<",">",">"},
+				{">",">",">",">","<",">",">"},
+				{"<","<","<","<","<","=",""},
+				{">",">",">",">","",">",">"},
+				{"<","<","<","<","<","","="}
+		};
+		int len = exp.length();
+		int begin = 0;
+		String c = exp.substring(begin, begin+1);
+		begin++;
+		String tmpNum = "";
+		operator.push("#"); // biao zhi wei zhi
+		System.out.println(c);
+		while ("#".equals(c) && operator.pop().equals("#") && begin <= len) {
+			while(!In(c,opera) && begin <= len) {tmpNum += c;begin++;c = exp.substring(begin, begin+1);}
+			if(!tmpNum.equals("")) {num.push(new BigDecimal(tmpNum)); tmpNum = "";}
+			else {
+				operator.push(c);
+				begin++;
+				c = exp.substring(begin, begin+1);
+			}
+		}
+		while (!operator.isEmpty()) {
+			System.out.println(operator.pop());
+		}
+		while (!num.isEmpty()) {
+			System.out.println(num.pop());
+		}
+	}
+	
+	public static boolean In(String exp, String opera[]) {
+		for (int i = 0; i < opera.length; i++) {
+			if(exp.equals(opera[i])) return true;
+		}
+		return false;
+	}
+	
+	// pan duan biaodaoshi cuowu
+	public static boolean isFalse(String exp) {
+		return false;
+	}
+	
+	public static void main(String[] args) {
+	   // Calculator cal = new Calculator();
+		exp = "9809876786786+78*445-(789+78)";
+		cal(exp);
+		System.out.println(ans);
+	}
+	
+}

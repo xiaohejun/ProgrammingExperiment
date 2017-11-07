@@ -1,0 +1,75 @@
+package com.calculator.view;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.DisplayMode;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class JCalculator extends JFrame implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private final String[] btnName = {
+			"CE","Del","(",")",
+			"7","8","9","+",
+			"4","5","6","-",
+			"1","2","3","*",
+			"0",".","=","/"
+	};
+	
+	JButton[] btns = new JButton[btnName.length];
+	JTextField display = new JTextField("0");
+	
+	public JCalculator() {
+		super("计算器");
+		Font font = new Font("Consolas", Font.BOLD, 20);
+		
+		// add components
+		JPanel pnlHead = new JPanel(new BorderLayout());
+		pnlHead.add(display); // add display
+		display.setFont(font);
+		
+		JPanel pnlBody = new JPanel(new GridLayout(5, 4)); // 5 line 4 col
+		pnlBody.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		for (int i = 0; i < btnName.length; i++) {
+			btns[i] = new JButton(btnName[i]);  // create btn
+			btns[i].setFont(font);
+			pnlBody.add(btns[i]); // add btn
+		}
+		btns[18].setForeground(Color.WHITE);
+		btns[18].setBackground(Color.BLUE); // count
+		btns[0].setForeground(Color.WHITE);
+		btns[0].setBackground(Color.RED); // count
+		getContentPane().setLayout(new BorderLayout());
+	    setLocationByPlatform(true); // 主窗口 出现在位置
+	    getContentPane().setLayout(new BorderLayout());
+	    getContentPane().add(pnlHead,BorderLayout.NORTH);
+	    getContentPane().add(pnlBody, BorderLayout.CENTER);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setSize(500, 500);
+	    setVisible(true);
+		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public static void main(String[] args) {
+	    JCalculator cal = new JCalculator();
+	}
+	
+}

@@ -1,0 +1,126 @@
+package com.calculator.view;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.JLabel;
+
+
+public class CalculatorView {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					CalculatorView window = new CalculatorView();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public CalculatorView() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		// 创建一个 JFrame 对象并初始化。JFrame 可以理解为程序的主窗体。
+	    frame = new JFrame("Calculator");
+	    
+	 // 创建一个 Jpanel 对象并初始化
+        JPanel pan = new JPanel();
+        pan.setLayout(new GridLayout(20, 20, 0, 0));
+        	    		
+        	    			    // 清除按钮
+        	    			    JButton btnClear = new JButton("C");
+        	    			    btnClear.setBackground(Color.RED);
+        	    			    
+     // 将用于计算的按钮添加到容器内
+        	    			    pan.add(btnClear);
+        	    		JButton btnDel = new JButton("Del");
+        	    		pan.add(btnDel);
+        	    		JButton btnLeftBra = new JButton("(");
+        	    		pan.add(btnLeftBra);
+        	    		JButton btnRightBra = new JButton(")");
+        	    		pan.add(btnRightBra);
+        	    		JButton btn7 = new JButton("7");
+        	    		
+        	    		pan.add(btn7);
+        	    		JButton btn8 = new JButton("8");
+        	    		pan.add(btn8);
+        	    		JButton btn9 = new JButton("9");
+        	    		pan.add(btn9);
+        	    		JButton btnDiv = new JButton("/");
+        	    		pan.add(btnDiv);
+        	    		JButton btn4 = new JButton("4");
+        	    		
+        	    		pan.add(btn4);
+        	    		JButton btn5 = new JButton("5");
+        	    		pan.add(btn5);
+        	    		JButton btn6 = new JButton("6");
+        	    		pan.add(btn6);
+        	    		JButton btnMul = new JButton("*");
+        	    		pan.add(btnMul);
+        	    		JButton btn1 = new JButton("1");
+        	    		
+        	    		pan.add(btn1);
+        	    		JButton btn2 = new JButton("2");
+        	    		pan.add(btn2);
+        	    		JButton btn3 = new JButton("3");
+        	    		pan.add(btn3);
+        	    		
+        	    			    // 数字键0到9
+        	    			    JButton btn0 = new JButton("0");
+        	    			    
+        	    			    pan.add(btn0);
+        	    		
+        	    			    // 计算命令按钮，加减乘除以及小数点等
+        	    				JButton btnPoint = new JButton(".");
+        	    				pan.add(btnPoint);
+        	    		// 
+
+        	    		// 计算按钮
+        	    		JButton btnCount = new JButton("=");
+        	    		pan.add(btnCount);
+        	    		JButton btnAdd = new JButton("+");
+        	    		pan.add(btnAdd);
+        
+     // 设置 pan 对象的边距
+        pan.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        
+     // 按照同样的方式设置第二个JPanel
+        JPanel pan2 = new JPanel();
+        pan2.setLayout(new BorderLayout());
+        frame.getContentPane().add(pan);
+        
+        JLabel label = new JLabel("");
+        pan.add(label);
+        frame.getContentPane().add(pan2);
+        
+        		// 创建一个 JTestField 对象并初始化。 JTestField 是用于显示操作和计算结果的文本框。
+        	    // 参数 20 表明可以显示 20 列的文本内容
+        	    JTextField resultTextField = new JTextField(20);
+        	    pan2.add(resultTextField);
+	}
+
+}

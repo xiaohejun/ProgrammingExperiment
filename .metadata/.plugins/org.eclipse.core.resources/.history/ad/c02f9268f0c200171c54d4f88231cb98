@@ -1,0 +1,142 @@
+package com.calculator.view;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.Color;
+
+
+public class Calculator extends JFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	String exp = "";// exp
+	String ans = ""; // ans
+
+	JTextField resultTextField = new JTextField(exp, 20);// 20列
+	private final JButton buttonClear = new JButton("C");
+	private final JButton button0 = new JButton("0");
+	private final JButton button1 = new JButton("1");
+	private final JButton button2 = new JButton("2");
+	private final JButton button3 = new JButton("3");
+	private final JButton button4 = new JButton("4");
+	private final JButton button5 = new JButton("5");
+	private final JButton button6 = new JButton("6");
+	private final JButton button7 = new JButton("7");
+	private final JButton button8 = new JButton("8");
+	private final JButton button9 = new JButton("9");
+	private final JButton buttonPoint = new JButton(".");
+	private final JButton buttonAdd = new JButton("+");
+	private final JButton buttonSub = new JButton("-");
+	private final JButton buttonMul = new JButton("*");
+	private final JButton buttonDiv = new JButton("/");
+	private final JButton buttonCount = new JButton("=");
+	private final JButton buttonDel = new JButton("Del");
+	private final JButton buttonLeftBra = new JButton("(");
+	private final JButton buttonRightBra = new JButton(")");
+
+	Calculator() {
+		super("计算器");
+	    JPanel pan = new JPanel();
+	    pan.setLayout(new GridLayout(5, 4, 8, 8));// wu行四列 边距为8像素
+	    buttonClear.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		exp = "";
+	    		resultTextField.setText(exp);
+	    	}
+	    });
+	    buttonCount.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ans = cal(exp);
+				resultTextField.setText(ans);
+				exp = "";
+			}
+		});
+	    buttonClear.setForeground(Color.WHITE);
+	    buttonClear.setBackground(Color.RED);
+	    pan.add(buttonClear);
+	    pan.add(buttonDel);
+	    pan.add(buttonLeftBra);
+	    pan.add(buttonRightBra);
+	    pan.add(button7);
+	    pan.add(button8);
+	    pan.add(button9);
+	    pan.add(buttonDiv);
+	    pan.add(button4);
+	    pan.add(button5);
+	    pan.add(button6);
+	    pan.add(buttonMul);
+	    pan.add(button1);
+	    pan.add(button2);
+	    pan.add(button3);
+	    pan.add(buttonSub);
+	    pan.add(button0);
+	    pan.add(buttonPoint);
+	    pan.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));// pan对象的边距
+
+	    JPanel pan2 = new JPanel();
+	    pan2.setLayout(new BorderLayout());
+	    pan2.add(resultTextField);
+
+	    getContentPane().setLayout(new BorderLayout());
+	    setLocationByPlatform(true); // 主窗口 出现在位置
+	    getContentPane().setLayout(new BorderLayout());
+	    getContentPane().add(pan2,BorderLayout.NORTH);
+	    getContentPane().add(pan, BorderLayout.CENTER);
+	    buttonCount.setForeground(Color.WHITE);
+	    buttonCount.setBackground(Color.BLUE);
+	    pan.add(buttonCount);
+	    pan.add(buttonAdd);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    setSize(500, 500);
+	    setVisible(true);
+
+	    // 事件处理 程 序
+	    ActionListener al = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				exp += ((JButton)e.getSource()).getText();
+				resultTextField.setText(exp);
+			}
+		};
+		button0.addActionListener(al);
+		button1.addActionListener(al);
+		button2.addActionListener(al);
+		button3.addActionListener(al);
+		button4.addActionListener(al);
+		button5.addActionListener(al);
+		button6.addActionListener(al);
+		button7.addActionListener(al);
+		button8.addActionListener(al);
+		button9.addActionListener(al);
+		buttonAdd.addActionListener(al);
+		buttonSub.addActionListener(al);
+		buttonDiv.addActionListener(al);
+		buttonMul.addActionListener(al);
+		buttonPoint.addActionListener(al);
+		buttonLeftBra.addActionListener(al);
+		buttonRightBra.addActionListener(al);
+	}
+	
+	// jisuanbiaodashi 
+	public static String cal(String exp) {
+		
+		return "hello";
+	}
+
+	public static void main(String[] args) {
+	    Calculator cal = new Calculator();
+	}
+}

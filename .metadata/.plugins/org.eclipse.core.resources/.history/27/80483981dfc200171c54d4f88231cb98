@@ -1,0 +1,113 @@
+package com.calculator.view;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.util.Vector;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.Color;
+
+
+public class Calculator {
+
+	String str1 = "0"; // 运算数1 初值一定为0 为了程序的安全
+	String str2 = "0"; // 运算数2
+	String signal = "+"; // 运算符
+	String result = "";// 结果
+
+	// 状态开关
+	int k1 = 1;// 开关1 用于选择输入方向 将要写入str2或 str2
+	int k2 = 1;// 开关2 符号键 次数 k2>1说明进行的是2+3-9+8 这样的多符号运算
+	int k3 = 1;// 开关3 str1 是否可以被清0 ==1时可以 !=1时不能被清0
+	int k4 = 1;// 开关4 str2 同上
+	int k5 = 1;// 开关5 控制小数点可否被录入 ==1时可以 !=1 输入的小数点被丢掉
+	JButton store; // 寄存器 记录 是否连续按下符号键
+	@SuppressWarnings("rawtypes")
+	Vector vt = new Vector(20, 10);
+
+	JFrame frame = new JFrame("计算器");
+	JTextField resultTextField = new JTextField(result, 20);// 20列
+	JButton buttonClear = new JButton("C");
+	JButton button0 = new JButton("0");
+	JButton button1 = new JButton("1");
+	JButton button2 = new JButton("2");
+	JButton button3 = new JButton("3");
+	JButton button4 = new JButton("4");
+	JButton button5 = new JButton("5");
+	JButton button6 = new JButton("6");
+	JButton button7 = new JButton("7");
+	JButton button8 = new JButton("8");
+	JButton button9 = new JButton("9");
+	JButton buttonPoint = new JButton(".");
+	JButton buttonAdd = new JButton("+");
+	JButton buttonSub = new JButton("-");
+	JButton button_cheng = new JButton("*");
+	JButton button_chu = new JButton("/");
+	JButton buttonCount = new JButton("=");
+	private final JButton buttonDel = new JButton("Del");
+	private final JButton buttonLeftBra = new JButton("(");
+	private final JButton buttonRightBra = new JButton(")");
+
+	Calculator() {
+	    resultTextField.setHorizontalAlignment(JTextField.RIGHT);// 文本框 右对齐
+
+	    JPanel pan = new JPanel();
+	    pan.setLayout(new GridLayout(5, 4, 5, 5));// wu行四列 边距为5像素
+	    buttonClear.setForeground(Color.WHITE);
+	    buttonClear.setBackground(Color.RED);
+	    pan.add(buttonClear);
+	    
+	    pan.add(buttonDel);
+	    
+	    pan.add(buttonLeftBra);
+	    
+	    pan.add(buttonRightBra);
+	    pan.add(button7);
+	    pan.add(button8);
+	    pan.add(button9);
+	    pan.add(button_chu);
+	    pan.add(button4);
+	    pan.add(button5);
+	    pan.add(button6);
+	    pan.add(button_cheng);
+	    pan.add(button1);
+	    pan.add(button2);
+	    pan.add(button3);
+	    pan.add(buttonSub);
+	    pan.add(button0);
+	    pan.add(buttonPoint);
+	    pan.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));// pan对象的边距
+
+	    JPanel pan2 = new JPanel();
+	    pan2.setLayout(new BorderLayout(0, 0));
+	    pan2.add(resultTextField);
+
+	    frame.setLocation(500, 500); // 主窗口 出现在位置
+	    frame.setSize(1000, 1000);
+	    frame.getContentPane().setLayout(new BorderLayout());
+	    frame.getContentPane().add(pan2, BorderLayout.NORTH);
+	    frame.getContentPane().add(pan, BorderLayout.CENTER);
+	    buttonCount.setForeground(Color.WHITE);
+	    buttonCount.setBackground(Color.BLUE);
+	    pan.add(buttonCount);
+	    pan.add(buttonAdd);
+
+	    frame.pack();
+	    frame.setVisible(true);
+
+	    // 事件处理 程 序
+
+	   
+
+	}
+
+	@SuppressWarnings("unused")
+	public static void main(String[] args) {
+	    Calculator cal = new Calculator();
+	}
+}
